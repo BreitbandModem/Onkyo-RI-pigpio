@@ -19,7 +19,11 @@ class OnkyoRI
 {
   public:
     OnkyoRI() {};
-    OnkyoRI(int pin) {  _outputPin = pin; gpioSetMode(_outputPin, PI_OUTPUT);  gpioWrite(_outputPin, 0); };
+    OnkyoRI(int pin) {
+      _outputPin = pin;
+      int _pi = pigpio_start(NULL, NULL);
+      set_mode(_pi, _outputPin, PI_OUTPUT);
+    };
 
     ~OnkyoRI() {  };
 
@@ -29,6 +33,7 @@ class OnkyoRI
   private:
     //
     int _outputPin;
+    int _pi;
 
     //write message header
     void writeHeader();
