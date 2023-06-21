@@ -73,5 +73,5 @@ void OnkyoRI::writeFooter()
 void OnkyoRI::delayMicroseconds(unsigned int howLong)
 {
   // account for some 80 microseconds delay on the system (rough guess!)
-  gpioDelay(howLong - 80)
+  gpioDelay(howLong - 80);
 }
