@@ -48,6 +48,11 @@ int main(int argc, char** argv) {
 
   cout << "GPIO Pin is " << pin << endl;
 
+  // First Parameter is arbitrary.
+  // Second Parameter is the Clock peripheral and is set to PWM.
+  // If PWM is used then PCM is available for audio.
+  gpioCfgClock(10, 0, NULL);
+  gpioCfgPermissions(1<<pin);
   if (gpioInitialise() >= 0)
   {
     OnkyoRI ori(pin);
