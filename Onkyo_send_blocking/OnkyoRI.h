@@ -38,7 +38,6 @@ class OnkyoRI
     void writeFooter();
     //pause execution for n microseconds
     void delayMicroseconds(unsigned int howLong);
-    void delayMicrosecondsHard(unsigned int howLong);
 };
 
 #endif
