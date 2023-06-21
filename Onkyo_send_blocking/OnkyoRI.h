@@ -37,8 +37,8 @@ class OnkyoRI
     //write message footer
     void writeFooter();
     //pause execution for n microseconds
-    void delayMicroseconds(int micros);
-    void delayMicrosecondsHard(int micros);
+    void delayMicroseconds(unsigned int howLong);
+    void delayMicrosecondsHard(unsigned int howLong);
 };
 
 #endif

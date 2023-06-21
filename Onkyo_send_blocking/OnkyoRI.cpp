@@ -14,6 +14,7 @@
 
 
 #include <time.h>
+#include <sys/time.h>
 #include <pigpio.h>
 #include "OnkyoRI.h"
 
@@ -89,7 +90,7 @@ void OnkyoRI::writeFooter()
  *********************************************************************************
  */
 
-void delayMicrosecondsHard (unsigned int howLong)
+void OnkyoRI::delayMicrosecondsHard (unsigned int howLong)
 {
   struct timeval tNow, tLong, tEnd ;
 
@@ -102,7 +103,7 @@ void delayMicrosecondsHard (unsigned int howLong)
     gettimeofday (&tNow, NULL) ;
 }
 
-void delayMicroseconds (unsigned int howLong)
+void OnkyoRI::delayMicroseconds (unsigned int howLong)
 {
   struct timespec sleeper ;
   unsigned int uSecs = howLong % 1000000 ;
