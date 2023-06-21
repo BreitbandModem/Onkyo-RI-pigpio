@@ -40,9 +40,9 @@ void OnkyoRI::send(int command)
 void OnkyoRI::writeHeader()
 {
   gpioWrite(_outputPin,1);
-  delayMicrosecondsHard(3000);
+  delayMicroseconds(3000);
   gpioWrite(_outputPin,0);
-  delayMicrosecondsHard(1000);
+  delayMicroseconds(1000);
 }
 
 /// write message bit
@@ -52,20 +52,20 @@ void OnkyoRI::writeHeader()
 void OnkyoRI::writeBit(bool level)
 {
   gpioWrite(_outputPin,1);
-  delayMicrosecondsHard(1000);
+  delayMicroseconds(1000);
   gpioWrite(_outputPin,0);
 
   if(level)
-    delayMicrosecondsHard(2000);
+    delayMicroseconds(2000);
   else
-    delayMicrosecondsHard(1000);
+    delayMicroseconds(1000);
 }
 
 /// write message footer
 void OnkyoRI::writeFooter()
 {
   gpioWrite(_outputPin,1);
-  delayMicrosecondsHard(1000);
+  delayMicroseconds(1000);
   gpioWrite(_outputPin,0);
   delayMicroseconds(20000);
 }
@@ -116,7 +116,8 @@ void OnkyoRI::delayMicroseconds (unsigned int howLong)
   else
   {
     sleeper.tv_sec  = wSecs ;
-    sleeper.tv_nsec = (long)(uSecs * 1000L) ;
+    // subtract 100 microseconds to account for system delay
+    sleeper.tv_nsec = (long)(uSecs * 1000L - 100000L) ;
     nanosleep (&sleeper, NULL) ;
   }
 }
