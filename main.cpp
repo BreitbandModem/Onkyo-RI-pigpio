@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
   // First Parameter is arbitrary.
   // Second Parameter is the Clock peripheral and is set to PWM.
   // If PWM is used then PCM is available for audio.
-  gpioCfgClock(10, 0, NULL);
+  gpioCfgClock(10, 0, 0);
   gpioCfgPermissions(1<<pin);
   if (gpioInitialise() >= 0)
   {
