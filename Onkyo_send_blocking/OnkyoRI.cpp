@@ -17,8 +17,6 @@
 #include <pigpio.h>
 #include "OnkyoRI.h"
 
-#define MICRO_SECOND_MULTIPLIER  1000
-
 /// send command message to device
 ///
 /// \param command  command to device

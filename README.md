@@ -16,6 +16,11 @@ This program is used in [dajuly20/node-red-contrib-onkyo-ri](https://github.com/
 that wraps it to be A NodeRed Node. So I can enable voice control for legacy hardware.
 ![OnkyoRi Port](./img/onkyorihw.png)
 
+# Onkyo-RI-pigpio
+The original implementation is using wiringPi, which is by now deprecated by their developer.
+The alternative implementations are using pigpio daemon through python. These implementations need to make use of PWM / PCM capabilities in order to get the timing right. As I'm using my Raspbi for music playback, this would cause bad interference with the audio.
+Therefore I've forked the wiringPi implementation and changed the gpio library to pigpio.
+
 # Onkyo-RI-RasperryPi
 First of all ... I was myself confused wich approach to choose. There are Python approaches,
 but I found them kind of slow. (Wouldn't be a problem,
