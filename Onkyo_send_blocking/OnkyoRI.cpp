@@ -40,9 +40,9 @@ void OnkyoRI::send(int command)
 void OnkyoRI::writeHeader()
 {
   gpioWrite(_outputPin,1);
-  delayMicroseconds(3000);
+  delayMicrosecondsHard(3000);
   gpioWrite(_outputPin,0);
-  delayMicroseconds(1000);
+  delayMicrosecondsHard(1000);
 }
 
 /// write message bit
@@ -52,20 +52,20 @@ void OnkyoRI::writeHeader()
 void OnkyoRI::writeBit(bool level)
 {
   gpioWrite(_outputPin,1);
-  delayMicroseconds(1000);
+  delayMicrosecondsHard(1000);
   gpioWrite(_outputPin,0);
 
   if(level)
-    delayMicroseconds(2000);
+    delayMicrosecondsHard(2000);
   else
-    delayMicroseconds(1000);
+    delayMicrosecondsHard(1000);
 }
 
 /// write message footer
 void OnkyoRI::writeFooter()
 {
   gpioWrite(_outputPin,1);
-  delayMicroseconds(1000);
+  delayMicrosecondsHard(1000);
   gpioWrite(_outputPin,0);
   delayMicroseconds(20000);
 }
