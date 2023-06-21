@@ -13,8 +13,11 @@
 //---------------------------------------------------------------------------
 
 
+#include <time.h>
 #include <pigpio.h>
 #include "OnkyoRI.h"
+
+#define MICRO_SECOND_MULTIPLIER  1000
 
 /// send command message to device
 ///
@@ -65,5 +68,14 @@ void OnkyoRI::writeFooter()
   gpioWrite(_outputPin,1);
   delayMicroseconds(1000);
   gpioWrite(_outputPin,0);
-  delay(20);
+  delayMicroseconds(20000);
+}
+
+void OnkyoRI::delayMicroseconds(int micros)
+{
+  struct timespec tim, tim2;
+  tim.tv_sec = 0;
+  tim.tv_nsec = micros * 1000;
+
+  nanosleep(&tim , &tim2);
 }

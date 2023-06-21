@@ -36,6 +36,8 @@ class OnkyoRI
     void writeBit(bool level);
     //write message footer
     void writeFooter();
+    //pause execution for n microseconds
+    void delayMicroseconds(int micros);
 };
 
 #endif
