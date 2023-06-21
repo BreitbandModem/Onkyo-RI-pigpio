@@ -21,6 +21,8 @@ The original implementation is using wiringPi, which is by now deprecated by the
 The alternative implementations are using pigpio daemon through python. These implementations need to make use of PWM / PCM capabilities in order to get the timing right. As I'm using my Raspbi for music playback, this would cause bad interference with the audio.
 Therefore I've forked the wiringPi implementation and changed the gpio library to pigpio.
 
+On my setup, the commands will not always work on the first try. I believe this is due to timing issues but I'm not sure.
+
 # Onkyo-RI-RasperryPi
 First of all ... I was myself confused wich approach to choose. There are Python approaches,
 but I found them kind of slow. (Wouldn't be a problem,
