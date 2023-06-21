@@ -13,7 +13,7 @@
 //---------------------------------------------------------------------------
 
 
-#include <wiringPi.h>
+#include <pigpio.h>
 #include "OnkyoRI.h"
 
 /// send command message to device
@@ -23,7 +23,7 @@
 void OnkyoRI::send(int command)
 {
   writeHeader();
-  
+
   for(int i=0;i<12;i++)
   {
     bool level = command & 0x800;
@@ -33,13 +33,13 @@ void OnkyoRI::send(int command)
 
   writeFooter();
 }
-   
-/// write message header 
+
+/// write message header
 void OnkyoRI::writeHeader()
 {
-  digitalWrite(_outputPin,HIGH);
+  gpioWrite(_outputPin,1);
   delayMicroseconds(3000);
-  digitalWrite(_outputPin,LOW);
+  gpioWrite(_outputPin,0);
   delayMicroseconds(1000);
 }
 
@@ -49,21 +49,21 @@ void OnkyoRI::writeHeader()
 ///
 void OnkyoRI::writeBit(bool level)
 {
-  digitalWrite(_outputPin,HIGH);
-  delayMicroseconds(1000);  
-  digitalWrite(_outputPin,LOW);
-    
+  gpioWrite(_outputPin,1);
+  delayMicroseconds(1000);
+  gpioWrite(_outputPin,0);
+
   if(level)
-    delayMicroseconds(2000); 
+    delayMicroseconds(2000);
   else
-    delayMicroseconds(1000); 
+    delayMicroseconds(1000);
 }
 
 /// write message footer
 void OnkyoRI::writeFooter()
 {
-  digitalWrite(_outputPin,HIGH);
+  gpioWrite(_outputPin,1);
   delayMicroseconds(1000);
-  digitalWrite(_outputPin,LOW);
+  gpioWrite(_outputPin,0);
   delay(20);
 }
