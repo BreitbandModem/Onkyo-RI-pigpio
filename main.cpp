@@ -1,4 +1,4 @@
-#include <pigpiod_if2.h>
+#include <pigpio.h>
 #include "Onkyo_send_blocking/OnkyoRI.h"
 #include <iostream>
 #include <vector>
@@ -48,13 +48,18 @@ int main(int argc, char** argv) {
 
   cout << "GPIO Pin is " << pin << endl;
 
-  OnkyoRI ori(pin);
+  if (gpioInitialise() >= 0)
+  {
+    OnkyoRI ori(pin);
 
-  for(auto const& commandString: commandsVector) {
-    int commandInteger = std::stoi(commandString, nullptr, 0);
-    cout << "Sending command: " << commandInteger << endl;
-    ori.send(commandInteger);
-    std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+    for(auto const& commandString: commandsVector) {
+      int commandInteger = std::stoi(commandString, nullptr, 0);
+      cout << "Sending command: " << commandInteger << endl;
+      ori.send(commandInteger);
+      std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+    }
   }
+
+  gpioTerminate();
 }
 

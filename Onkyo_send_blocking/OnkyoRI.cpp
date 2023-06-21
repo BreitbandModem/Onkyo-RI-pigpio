@@ -13,7 +13,9 @@
 //---------------------------------------------------------------------------
 
 
-#include <pigpiod_if2.h>
+#include <time.h>
+#include <sys/time.h>
+#include <pigpio.h>
 #include "OnkyoRI.h"
 
 /// send command message to device
@@ -22,8 +24,6 @@
 ///
 void OnkyoRI::send(int command)
 {
-  gpio_write(_pi, _outputPin, 0);
-
   writeHeader();
 
   for(int i=0;i<12;i++)
@@ -34,16 +34,14 @@ void OnkyoRI::send(int command)
   }
 
   writeFooter();
-
-  pigpio_stop(_pi);
 }
 
 /// write message header
 void OnkyoRI::writeHeader()
 {
-  gpio_write(_pi, _outputPin,1);
+  gpioWrite(_outputPin,1);
   delayMicroseconds(3000);
-  gpio_write(_pi, _outputPin,0);
+  gpioWrite(_outputPin,0);
   delayMicroseconds(1000);
 }
 
@@ -53,9 +51,9 @@ void OnkyoRI::writeHeader()
 ///
 void OnkyoRI::writeBit(bool level)
 {
-  gpio_write(_pi, _outputPin,1);
+  gpioWrite(_outputPin,1);
   delayMicroseconds(1000);
-  gpio_write(_pi, _outputPin,0);
+  gpioWrite(_outputPin,0);
 
   if(level)
     delayMicroseconds(2000);
@@ -66,17 +64,14 @@ void OnkyoRI::writeBit(bool level)
 /// write message footer
 void OnkyoRI::writeFooter()
 {
-  gpio_write(_pi, _outputPin,1);
+  gpioWrite(_outputPin,1);
   delayMicroseconds(1000);
-  gpio_write(_pi, _outputPin,0);
+  gpioWrite(_outputPin,0);
   delayMicroseconds(20000);
 }
 
 void OnkyoRI::delayMicroseconds(unsigned int howLong)
 {
-  struct timespec tim, tim2;
-  tim.tv_sec = 0;
-  tim.tv_nsec = howLong * 1000;
-
-  nanosleep(&tim , &tim2);
+  // account for some 80 microseconds delay on the system (rough guess!)
+  gpioDelay(howLong - 80);
 }
